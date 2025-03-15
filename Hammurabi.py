@@ -10,26 +10,59 @@ class Hammurabi:
     def playGame(self):
         # declare local variables here: grain, population, etc.
         # statements go after the declarations
+        people = 100
+        grain = 2800
+        land = 19
+        land_value = 1
+        starved = 0
+        immigrants = 5
+        harvest = 3000
+        bushelsPerAcre = 3
+        ratsDestroyed = 200
+        year = 1
 
-        current_stats = [100, 2800, 1000, 19, 1, 0]
-        #current_stats = [people, grain, land, land_value, year, starved]
-        more_stats = [5, 3000, 3, 200]
-        #more_stats = [immigrants, harvest, bushelsPerAcre, ratsDestroyed]
+        def printSummary():
+            print("O great Hammurabi!\n" +
+                  "You are in year " + str(year) + " of your ten year rule.\n" +
+                  "In the previous year " + str(starved) + " people starved to death.\n" +
+                  "In the previous year " + str(immigrants) + " people entered the kingdom.\n" +
+                  "The population is now " + str(people) + ".\n" +
+                  "We harvested " + str(harvest) + " bushels at " + str(bushelsPerAcre) + " bushels per acre.\n" +
+                  "Rats destroyed " + str(ratsDestroyed) + " bushels, leaving " + str(grain) + " bushels in storage.\n" +
+                  "The city owns " + str(land) + " acres of land.\n" +
+                  "Land is currently worth " + str(land_value) + " bushels per acre.")
+        printSummary()
 
-        return Hammurabi.printSummary(self)
+        land = int(land) + int(Hammurabi.askHowManyAcresToBuy(grain, bushelsPerAcre))
+        grain = int(grain) - int(land) * int(bushelsPerAcre)
+        printSummary()
+
+
 
     # other methods go here
-    def printSummary(self):
-        print ("O great Hammurabi!\n" +
-               "You are in year " + current_stats[4] + " of your ten year rule.\n" +
-               "In the previous year " + current_stats[5] + " people starved to death.\n" +
-               "In the previous year " + more_stats[0] + " people entered the kingdom.\n" +
-               "The population is now " + current_stats[0] + ".\n" +
-               "We harvested " + more_stats[1] + " bushels at " + more_stats[2] + " bushels per acre.\n" +
-               "Rats destroyed " + more_stats[3] + " bushels, leaving " + current_stats[1] + " bushels in storage.\n" +
-               "The city owns " + current_stats[2] + " acres of land.\n" +
-               "Land is currently worth " + current_stats[3] + " bushels per acre.")
 
+    # def testPrint (x):
+    #     print (x)
+    #
+    # def minusPeople (people):
+    #     x = int(people) - 10
+    #     people = x
+    #     return people
+
+    def askHowManyAcresToBuy(grain,bushelsPerAcre):
+        howMany = input("How many acres would you like to buy? \n")
+        while int(howMany) * int(bushelsPerAcre) > int(grain):
+            print ("Hammurabi surely you jest, we cannot afford that with " + str(grain) + "bushels of grain.\n")
+            howMany = input("How many acres would you like to buy? \n")
+        return howMany
+
+    def askHowManyAcresToSell (land):
+        howMany = input("How many acres would you like to sell? \n")
+        while int(howMany) > land:
+            print("Hammurabi ease off the wine. You must be seeing double. Currently we own only " + str(land)
+                  + " acres of land\n")
+            howMany = input("How many acres would you like to sell? \n")
+        return howMany
 
 
 if __name__ == "__main__":
