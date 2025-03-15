@@ -20,6 +20,7 @@ class Hammurabi:
         bushelsPerAcre = 3
         ratsDestroyed = 200
         year = 1
+        planted_land = 0
 
         def printSummary():
             print("O great Hammurabi!\n" +
@@ -31,11 +32,16 @@ class Hammurabi:
                   "Rats destroyed " + str(ratsDestroyed) + " bushels, leaving " + str(grain) + " bushels in storage.\n" +
                   "The city owns " + str(land) + " acres of land.\n" +
                   "Land is currently worth " + str(land_value) + " bushels per acre.")
-        printSummary()
 
-        land = int(land) + int(Hammurabi.askHowManyAcresToBuy(grain, bushelsPerAcre))
-        grain = int(grain) - int(land) * int(bushelsPerAcre)
         printSummary()
+        land = int(land) + int(Hammurabi.askHowManyAcresToBuy(grain, land_value))
+        grain = int(grain) - int(land) * int(land_value)
+        land = int(land) - int(Hammurabi.askHowManyAcresToSell(land))
+        grain = int(grain) + int(land) * int(land_value)
+        grain = int(grain) - int(Hammurabi.askHowMuchGrainToFeedPeople(grain))
+        planted_land = int(Hammurabi.askHowManyAcresToPlant(land, people, grain))
+        printSummary()
+        print (planted_land)
 
 
 
@@ -49,21 +55,42 @@ class Hammurabi:
     #     people = x
     #     return people
 
-    def askHowManyAcresToBuy(grain,bushelsPerAcre):
+    def askHowManyAcresToBuy(grain,land_value):
         howMany = input("How many acres would you like to buy? \n")
-        while int(howMany) * int(bushelsPerAcre) > int(grain):
+        while int(howMany) * int(land_value) > int(grain):
             print ("Hammurabi surely you jest, we cannot afford that with " + str(grain) + "bushels of grain.\n")
             howMany = input("How many acres would you like to buy? \n")
         return howMany
 
     def askHowManyAcresToSell (land):
         howMany = input("How many acres would you like to sell? \n")
-        while int(howMany) > land:
+        while int(howMany) > int(land):
             print("Hammurabi ease off the wine. You must be seeing double. Currently we own only " + str(land)
                   + " acres of land\n")
             howMany = input("How many acres would you like to sell? \n")
         return howMany
 
+    #need to combine these
+
+    def askHowMuchGrainToFeedPeople (grain):
+        howMany = input("How much grain shall we provide the people with? \n")
+        return howMany
+
+    def askHowManyAcresToPlant (land, people, grain):
+        howMany = input("How many acres of grain shall we plant? \n")
+        while int(howMany) > int(land):
+            print("Hammurabi you need to count with more than your fingers and toes. We only have " +
+            str(land) + " acres of land. \n")
+            howMany = input("How many acres of grain shall we plant? \n")
+        while int(howMany) > int(people)*10:
+            print("Hammurabi I know you are a great leader but the people would rather kill you than" +
+            " work overtime. We have only " + str(people) + " people. \n")
+            howMany = input("How many acres of grain shall we plant? \n")
+        while int(howMany) > int(grain)*2:
+            print("Hammurabi just cause you plant the grain over a larger area does not mean" +
+            " it will grow to fill it. We have only " + str(grain) + "bushels of grain. \n")
+            howMany = input("How many acres of grain shall we plant? \n")
+        return howMany
 
 if __name__ == "__main__":
     hammurabi = Hammurabi()
