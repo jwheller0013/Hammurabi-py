@@ -39,6 +39,7 @@ class Hammurabi:
             fed = 0
             total_starved = 0
             plagueDeaths = 0
+            revolt = False
 
             for i in range(1, 11, 1):
 
@@ -86,6 +87,14 @@ class Hammurabi:
                     if plagueDeaths > 0:
                         print("Dreadful news a plague struck our lands. " + str(plagueDeaths) + " died.\n")
                     #covers plague hitting town
+
+                    revolt = Hammurabi.uprising(people, starved)
+                    if revolt == True:
+                        print("So yeahhhh been great serving you but that angry mob is coming " +
+                              "to kill you for starving them. I'd advise maybe wiping your mouth of crumbs " +
+                              "before they get here......bye.\n")
+                        return
+                    #covers uprising
 
                 if i == 10:
                     Hammurabi.end_results(total_starved, land)
@@ -199,6 +208,12 @@ class Hammurabi:
         if chance <= 15:
             self = self/2
         return self
+
+    def uprising(people, starved):
+        revolt = False
+        if int(starved) > (int(people)*0.45):
+            revolt = True
+        return revolt
 
 if __name__ == "__main__":
     hammurabi = Hammurabi()
