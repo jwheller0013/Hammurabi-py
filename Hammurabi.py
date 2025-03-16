@@ -22,8 +22,8 @@ class Hammurabi:
 
             people = 100
             grain = 2800
-            land = 19
-            land_value = 1
+            land = 1000
+            land_value = 19
             starved = 0
             immigrants = 5
             harvest = 3000
@@ -65,6 +65,7 @@ class Hammurabi:
                 starved = int(Hammurabi.starvationDeaths(fed, people))
                 total_starved = total_starved + starved
                 people = people - starved
+                #should the people die at end of each year or before can plant?
                 #this handles feeding/starving
 
                 planted_acres = int(Hammurabi.askHowManyAcresToPlant(land, people, grain))
@@ -175,7 +176,7 @@ class Hammurabi:
     def end_results(total_starved, land):
         print("O great Hammurabi you have made it to the end of your ten year rule.\n" +
               "Of your subjects only " + str(total_starved) + " starved to death\n" +
-              "Yet during that time our land holdings increased by " + str(int(land) - 19) +
+              "Yet during that time our land holdings increased by " + str(int(land) - 1000) +
               ".")
 
 
