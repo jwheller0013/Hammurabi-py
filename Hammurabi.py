@@ -20,6 +20,8 @@ class Hammurabi:
             print("Goodbye.")
         while play_game == True:
 
+            game_mode = Hammurabi.game_mode(self)
+
             people = 100
             grain = 2800
             land = 1000
@@ -36,8 +38,10 @@ class Hammurabi:
             feed = 0
             fed = 0
             total_starved = 0
+            plagueDeaths = 0
 
             for i in range(1, 11, 1):
+
                 print("O great Hammurabi!\n" +
                 "You are in year " + str(i) + " of your ten year rule.\n" +
                 "In the previous year " + str(starved) + " people starved to death.\n" +
@@ -75,6 +79,13 @@ class Hammurabi:
                 bushelsPerAcre = int(Hammurabi.bushels_per_acre())
                 harvest = int(Hammurabi.harvest(bushelsPerAcre, planted_acres))
                 grain = int(grain) + int(harvest)
+
+                if game_mode == "All":
+                    plagueDeaths = people - int(Hammurabi.plagueDeaths(people))
+                    people = people - plagueDeaths
+                    if plagueDeaths > 0:
+                        print("Dreadful news a plague struck our lands. " + str(plagueDeaths) + " died.\n")
+                    #covers plague hitting town
 
                 if i == 10:
                     Hammurabi.end_results(total_starved, land)
@@ -179,6 +190,15 @@ class Hammurabi:
               "Yet during that time our land holdings increased by " + str(int(land) - 1000) +
               ".")
 
+    def game_mode(self):
+        self = input("Looking to play a 'Basic' game or ready for 'All' the challenges of rule?\n")
+        return self
+
+    def plagueDeaths(self):
+        chance = randrange(1,101)
+        if chance <= 15:
+            self = self/2
+        return self
 
 if __name__ == "__main__":
     hammurabi = Hammurabi()
