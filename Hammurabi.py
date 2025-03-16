@@ -103,6 +103,10 @@ class Hammurabi:
                         immigrants = 0
                     #covers immigration
 
+                    ratsDestroyed = int(Hammurabi.grainEatenByRats(grain))
+                    grain = int(grain) - int(ratsDestroyed)
+                    #covers rats
+
                 if i == 10:
                     Hammurabi.end_results(total_starved, land)
                     return
@@ -225,6 +229,15 @@ class Hammurabi:
     def immigrants(people, land, grain):
         immigrants = int((20 * int(land) + int(grain))/(100*int(people))+1)
         return immigrants
+
+    def grainEatenByRats(self):
+        chance = randrange(1,101)
+        eaten = 0
+        if chance <= 40:
+            eaten_percent = randrange(10, 31)
+            eaten = int(eaten) + ((int(self) * int(eaten_percent)) / 100)
+            return eaten
+        return eaten
 
 if __name__ == "__main__":
     hammurabi = Hammurabi()
