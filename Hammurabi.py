@@ -40,8 +40,10 @@ class Hammurabi:
             total_starved = 0
             plagueDeaths = 0
             revolt = False
+            total_ratsDestroyed = 0
+            plague_counter = 0
 
-            for i in range(1, 11, 1):
+            for i in range(10, 11, 1):
 
                 print("O great Hammurabi!\n" +
                 "You are in year " + str(i) + " of your ten year rule.\n" +
@@ -86,6 +88,7 @@ class Hammurabi:
                     people = people - plagueDeaths
                     if plagueDeaths > 0:
                         print("Dreadful news a plague struck our lands. " + str(plagueDeaths) + " died.\n")
+                        plague_counter = plague_counter+1
                     #covers plague hitting town
 
                     revolt = Hammurabi.uprising(people, starved)
@@ -104,11 +107,15 @@ class Hammurabi:
                     #covers immigration
 
                     ratsDestroyed = int(Hammurabi.grainEatenByRats(grain))
+                    total_ratsDestroyed = total_ratsDestroyed + ratsDestroyed
                     grain = int(grain) - int(ratsDestroyed)
                     #covers rats
 
+                    land_value = int(Hammurabi.newCostOfLand(land_value))
+
+
                 if i == 10:
-                    Hammurabi.end_results(total_starved, land)
+                    Hammurabi.end_results(total_starved, land, total_ratsDestroyed, plague_counter)
                     return
 
 
@@ -204,11 +211,49 @@ class Hammurabi:
         harvest = int(planted_acres) * int(bushelsPerAcre)
         return harvest
 
-    def end_results(total_starved, land):
-        print("O great Hammurabi you have made it to the end of your ten year rule.\n" +
-              "Of your subjects only " + str(total_starved) + " starved to death\n" +
-              "Yet during that time our land holdings increased by " + str(int(land) - 1000) +
-              ".")
+    def end_results(total_starved, land, total_ratsDestroyed, plague_counter):
+        print("O great Hammurabi you have made it to the end of your ten year rule.")
+
+        if total_starved == 0:
+            print("You are quite a humanitarian somehow no one starved under your rule.")
+        elif total_starved <= 50:
+            print("Of your subjects only " + str(total_starved) + " starved to death.")
+        elif total_starved > 50:
+            print("Surprised you made it out alive considering " + str(total_starved) + " starved to death.")
+
+        if plague_counter == 0:
+            print("Not a single plague during your rule!\n"
+                  "It was a hard sell but that concept of washing hands worked wonders.")
+        elif plague_counter > 1 and plague_counter < 5:
+            print("A few plagues could not stop you O Great Hammurabi\n" +
+                  "We survied " + str(plague_counter) + " plagues in total.")
+        elif plague_counter > 5:
+            print("Surprised we have any people left after " + str(plague_counter) +
+                  " plagues hit our land.\n" + "Perhaps killing all those healers " +
+                  "in the kingdom for calling you fat was a mistake.")
+
+        if total_ratsDestroyed == 0:
+            print("Praise be our luck or the barn cats as rats ate none of our grain")
+        elif total_ratsDestroyed <= 1000:
+            print("We lost our fair share of grain to rats over the years " + str(total_ratsDestroyed)
+                  + " bushels in total.")
+        elif total_ratsDestroyed > 1000 and total_ratsDestroyed < 3000:
+            print("Seems we spent those years feeding rats as much as people " + str(total_ratsDestroyed)
+                  + " bushels in total.")
+        elif total_ratsDestroyed > 3000:
+            print("Granted should call you the king of rats with how much they ate" + str(total_ratsDestroyed) +
+                  " bushels in total.\n" + "I mean really sire I told you your decree banning cats was bad.")
+
+        if land < 1000:
+            print("During your rule we lost land though, roughly " + str(1000-int(land)) + " acres.\n" +
+            "Probably be a good idea to work on how to spin that to sound good to the next ruler.")
+        elif land == 1000:
+            print("During your rule we did not loose or gain land. I mean not bad....\n" +
+                  "not great...but hey we all can't be as good as your brother.")
+        elif land > 1000:
+            print("Nice job increasing our kingdom O Great Hammurabi. Our kingdom grew by\n" +
+                  str(int(land) - 1000) +".")
+
 
     def game_mode(self):
         self = input("Looking to play a 'Basic' game or ready for 'All' the challenges of rule?\n")
@@ -238,6 +283,10 @@ class Hammurabi:
             eaten = int(eaten) + ((int(self) * int(eaten_percent)) / 100)
             return eaten
         return eaten
+
+    def newCostOfLand(self):
+        self = randrange(17,24)
+        return self
 
 if __name__ == "__main__":
     hammurabi = Hammurabi()
