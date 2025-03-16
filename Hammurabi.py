@@ -128,7 +128,7 @@ class Hammurabi:
         if z == "No":
             print("So be it.")
             x = False
-        if z == "Yes":
+        elif z == "Yes":
             x = True
         else:
             print("Nah you opened me to play a game not make Jim error code all your mistakes.")
