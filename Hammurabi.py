@@ -96,6 +96,13 @@ class Hammurabi:
                         return
                     #covers uprising
 
+                    if starved == 0:
+                        immigrants = Hammurabi.immigrants(people, land, grain)
+                        people = int(people) + int(immigrants)
+                    elif starved != 0:
+                        immigrants = 0
+                    #covers immigration
+
                 if i == 10:
                     Hammurabi.end_results(total_starved, land)
                     return
@@ -214,6 +221,10 @@ class Hammurabi:
         if int(starved) > (int(people)*0.45):
             revolt = True
         return revolt
+
+    def immigrants(people, land, grain):
+        immigrants = int((20 * int(land) + int(grain))/(100*int(people))+1)
+        return immigrants
 
 if __name__ == "__main__":
     hammurabi = Hammurabi()
