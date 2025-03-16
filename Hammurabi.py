@@ -1,4 +1,6 @@
 import random
+from random import randrange
+
 
 class Hammurabi:
     def __init__(self):
@@ -27,10 +29,12 @@ class Hammurabi:
             harvest = 3000
             bushelsPerAcre = 3
             ratsDestroyed = 200
-            planted_land = 0
+            bushels_planted = 0
             bought_land = 0
             sold_land = 0
             buy = True
+            feed = 0
+            fed = 0
 
             for i in range(1, 11, 1):
                 print("O great Hammurabi!\n" +
@@ -52,20 +56,22 @@ class Hammurabi:
                 grain = int(grain) + (int(sold_land) - int(bought_land)) * int(land_value)
                 #this handles buying and selling
 
-                grain = int(grain) - int(Hammurabi.askHowMuchGrainToFeedPeople(grain))
-                planted_land = int(Hammurabi.askHowManyAcresToPlant(land, people, grain))
+                feed = int(Hammurabi.askHowMuchGrainToFeedPeople(grain))
+                fed = feed/20
+                grain = int(grain) - int(feed)
+                starved = int(Hammurabi.starvationDeaths(fed, people))
+                people = people - starved
+                #this handles feeding/starving
+
+                bushels_planted = int(Hammurabi.askHowManyAcresToPlant(land, people, grain))
+                grain = int(grain) - int(bushels_planted)
+                #this handles bushels_planted
+
+
 
 
 
     # other methods go here
-
-    # def testPrint (x):
-    #     print (x)
-    #
-    # def minusPeople (people):
-    #     x = int(people) - 10
-    #     people = x
-    #     return people
 
     def start_game(x):
         z =input("Are you ready to see if you can live up to being the great\n" + "Hammurabi?\n")
@@ -106,7 +112,6 @@ class Hammurabi:
             howMany = input("How many acres would you like to sell? \n")
         return howMany
 
-    #need to combine these
     def askBuyOrSell (buy):
         buyOrSell = input("So my lord are we buying or selling land?\n")
         if buyOrSell == "buying":
@@ -117,7 +122,8 @@ class Hammurabi:
 
     def askHowMuchGrainToFeedPeople (grain):
         howMany = input("How much grain shall we provide the people with? \n")
-        return howMany
+        grain = int(grain) - int(howMany)
+        return grain
 
     def askHowManyAcresToPlant (land, people, grain):
         howMany = input("How many acres of grain shall we plant? \n")
@@ -133,7 +139,19 @@ class Hammurabi:
             print("Hammurabi just cause you plant the grain over a larger area does not mean" +
             " it will grow to fill it. We have only " + str(grain) + "bushels of grain. \n")
             howMany = input("How many acres of grain shall we plant? \n")
-        return howMany
+        return int(howMany)*2
+
+    def starvationDeaths (fed, people):
+        starved = 0
+        if int(people) > int(fed):
+            starved = int(people) - int(fed)
+        if int(people) <= int(fed):
+            starved = 0
+        return starved
+
+    def harvest (acres, bushelsPlanted):
+        luck = randrange(1,7)
+        planted =
 
 if __name__ == "__main__":
     hammurabi = Hammurabi()
