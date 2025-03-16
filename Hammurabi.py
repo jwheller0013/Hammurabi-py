@@ -43,7 +43,7 @@ class Hammurabi:
             total_ratsDestroyed = 0
             plague_counter = 0
 
-            for i in range(10, 11, 1):
+            for i in range(1, 11, 1):
 
                 print("O great Hammurabi!\n" +
                 "You are in year " + str(i) + " of your ten year rule.\n" +
