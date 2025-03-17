@@ -160,36 +160,42 @@ class Hammurabi:
                "with appreciation at the end of your term.\n" + "Rule poorly and you will be kicked out of office! \n")
 
     def askHowManyAcresToBuy(grain,land_value):
-        while True:
-            try:
-                howMany = int(input("How many acres would you like to buy? \n"))
-                while int(howMany) * int(land_value) > int(grain):
-                    print ("Hammurabi surely you jest, we cannot afford that with " + str(grain) + " bushels of grain.\n")
-                    howMany = input("How many acres would you like to buy? \n")
-                while howMany < 0:
-                    print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
-                          "god Programina Jim.\n")
-                    howMany = input("How many acres would you like to buy? \n")
-            except ValueError:
-                print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
-                      "god Programina Jim.\n")
+        howMany = int(input("How many acres would you like to buy? \n"))
+        while int(howMany) * int(land_value) > int(grain):
+            print ("Hammurabi surely you jest, we cannot afford that with " + str(grain) + " bushels of grain.\n")
+            howMany = input("How many acres would you like to buy? \n")
+        while int(howMany) < 0:
+            print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
+                  "god Programina Jim.\n")
+            howMany = input("How many acres would you like to buy? \n")
         return howMany
 
+
+        # while True:
+        #     try:
+        #         howMany = int(input("How many acres would you like to buy? \n"))
+        #         while int(howMany) * int(land_value) > int(grain):
+        #             print ("Hammurabi surely you jest, we cannot afford that with " + str(grain) + " bushels of grain.\n")
+        #             howMany = input("How many acres would you like to buy? \n")
+        #         while howMany < 0:
+        #             print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
+        #                   "god Programina Jim.\n")
+        #             howMany = input("How many acres would you like to buy? \n")
+        #     except ValueError:
+        #         print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
+        #               "god Programina Jim.\n")
+        # return howMany
+
     def askHowManyAcresToSell (land):
-        while True:
-            try:
-                howMany = int(input("How many acres would you like to sell? \n"))
-                while int(howMany) > int(land):
-                    print("Hammurabi ease off the wine. You must be seeing double. Currently we own only " + str(land)
-                    + " acres of land\n")
-                    howMany = input("How many acres would you like to sell? \n")
-                while howMany < 0:
-                    print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
-                          "god Programina Jim.\n")
-                    howMany = input("How many acres would you like to buy? \n")
-            except ValueError:
-                print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
-                    "god Programina Jim.\n")
+        howMany = input("How many acres would you like to sell? \n")
+        while int(howMany) > int(land):
+            print("Hammurabi ease off the wine. You must be seeing double. Currently we own only " + str(land)
+                  + " acres of land\n")
+            howMany = input("How many acres would you like to sell? \n")
+        while int(howMany) < 0:
+            print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
+                  "god Programina Jim.\n")
+            howMany = input("How many acres would you like to sell? \n")
         return howMany
 
     def askBuyOrSell (buy):
@@ -199,7 +205,6 @@ class Hammurabi:
         elif buyOrSell == "selling":
             buy = False
         return buy
-    #still needs error coding
 
     def askHowMuchGrainToFeedPeople (grain):
         howMany = input("How much grain shall we provide the people with? \n")
@@ -207,8 +212,11 @@ class Hammurabi:
             print("Hammurabi, I know you are grateful for our people but we only have " +
                   str(grain) + " grain in our storage.")
             howMany = input("How much grain shall we provide the people with? \n")
-        grain = int(howMany)
-        return grain
+        while int(howMany) < 0:
+            print("Hammurabi give a number 0 or greater. Please be careful not to taunt the code\n" +
+                  "god Programina Jim.\n")
+            howMany = input("How much grain shall we provide the people with? \n")
+        return howMany
 
     def askHowManyAcresToPlant (land, people, grain):
         howMany = input("How many acres of grain shall we plant? \n")
@@ -223,6 +231,10 @@ class Hammurabi:
         while int(howMany)*2 > int(grain):
             print("Hammurabi just cause you plant the grain over a larger area does not mean" +
             " it will grow to fill it. We have only " + str(grain) + " bushels of grain. \n")
+            howMany = input("How many acres of grain shall we plant? \n")
+        while int(howMany) < 0:
+            print("Hammurabi give a number 0 or greater. Please be careful not to taunt the code\n" +
+                  "god Programina Jim.\n")
             howMany = input("How many acres of grain shall we plant? \n")
         return int(howMany)
 
