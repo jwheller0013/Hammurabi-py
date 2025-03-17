@@ -44,16 +44,29 @@ class Hammurabi:
             plague_counter = 0
 
             for i in range(1, 11, 1):
+                #should have different versions based on basic or ALL game mode
 
-                print("O great Hammurabi!\n" +
-                "You are in year " + str(i) + " of your ten year rule.\n" +
-                "In the previous year " + str(starved) + " people starved to death.\n" +
-                "In the previous year " + str(immigrants) + " people entered the kingdom.\n" +
-                "The population is now " + str(people) + ".\n" +
-                "We harvested " + str(harvest) + " bushels at " + str(bushelsPerAcre) + " bushels per acre.\n" +
-                "Rats destroyed " + str(ratsDestroyed) + " bushels, leaving " + str(grain) + " bushels in storage.\n" +
-                "The city owns " + str(land) + " acres of land.\n" +
-                "Land is currently worth " + str(land_value) + " bushels per acre.")
+                if game_mode == "All":
+                    print("O great Hammurabi!\n" +
+                    "You are in year " + str(i) + " of your ten year rule.\n" +
+                    "In the previous year " + str(starved) + " people starved to death.\n" +
+                    "In the previous year " + str(immigrants) + " people entered the kingdom.\n" +
+                    "The population is now " + str(people) + ".\n" +
+                    "We harvested " + str(harvest) + " bushels at " + str(bushelsPerAcre) + " bushels per acre.\n" +
+                    "Rats destroyed " + str(ratsDestroyed) + " bushels, leaving " + str(grain) + " bushels in storage.\n" +
+                    "The city owns " + str(land) + " acres of land.\n" +
+                    "Land is currently worth " + str(land_value) + " bushels per acre.")
+
+                if game_mode == "Basic":
+                    print("O great Hammurabi!\n" +
+                    "You are in year " + str(i) + " of your ten year rule.\n" +
+                    "In the previous year " + str(starved) + " people starved to death.\n" +
+                    # "In the previous year " + str(immigrants) + " people entered the kingdom.\n" +
+                    "The population is now " + str(people) + ".\n" +
+                    "We harvested " + str(harvest) + " bushels at " + str(bushelsPerAcre) + " bushels per acre.\n" +
+                    # "Rats destroyed " + str(ratsDestroyed) + " bushels, leaving " + str(grain) + " bushels in storage.\n" +
+                    "The city owns " + str(land) + " acres of land.\n" +
+                    "Land is currently worth " + str(land_value) + " bushels per acre.")
 
                 buy = Hammurabi.askBuyOrSell(buy)
                 if buy == True:
@@ -83,6 +96,15 @@ class Hammurabi:
                 harvest = int(Hammurabi.harvest(bushelsPerAcre, planted_acres))
                 grain = int(grain) + int(harvest)
 
+                if starved == 0:
+                    immigrants = Hammurabi.immigrants(people, land, grain)
+                    people = int(people) + int(immigrants)
+                elif starved != 0:
+                    immigrants = 0
+                # covers immigration
+
+                land_value = int(Hammurabi.newCostOfLand(land_value))
+
                 if game_mode == "All":
                     plagueDeaths = people - int(Hammurabi.plagueDeaths(people))
                     people = people - plagueDeaths
@@ -99,20 +121,10 @@ class Hammurabi:
                         return
                     #covers uprising
 
-                    if starved == 0:
-                        immigrants = Hammurabi.immigrants(people, land, grain)
-                        people = int(people) + int(immigrants)
-                    elif starved != 0:
-                        immigrants = 0
-                    #covers immigration
-
                     ratsDestroyed = int(Hammurabi.grainEatenByRats(grain))
                     total_ratsDestroyed = total_ratsDestroyed + ratsDestroyed
                     grain = int(grain) - int(ratsDestroyed)
                     #covers rats
-
-                    land_value = int(Hammurabi.newCostOfLand(land_value))
-
 
                 if i == 10:
                     Hammurabi.end_results(total_starved, land, total_ratsDestroyed, plague_counter)
@@ -148,10 +160,19 @@ class Hammurabi:
                "with appreciation at the end of your term.\n" + "Rule poorly and you will be kicked out of office! \n")
 
     def askHowManyAcresToBuy(grain,land_value):
-        howMany = input("How many acres would you like to buy? \n")
-        while int(howMany) * int(land_value) > int(grain):
-            print ("Hammurabi surely you jest, we cannot afford that with " + str(grain) + " bushels of grain.\n")
-            howMany = input("How many acres would you like to buy? \n")
+        while True:
+            try:
+                howMany = int(input("How many acres would you like to buy? \n"))
+                while int(howMany) * int(land_value) > int(grain):
+                    print ("Hammurabi surely you jest, we cannot afford that with " + str(grain) + " bushels of grain.\n")
+                    howMany = input("How many acres would you like to buy? \n")
+                while howMany < 0:
+                    print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
+                          "god Programina Jim.\n")
+                    howMany = input("How many acres would you like to buy? \n")
+            except ValueError:
+                print("Hammurabi acres is a number 0 or greater. Please be careful not to taunt the code\n" +
+                      "god Programina Jim.\n")
         return howMany
 
     def askHowManyAcresToSell (land):
