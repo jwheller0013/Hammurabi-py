@@ -284,7 +284,7 @@ class Hammurabi:
             print("Seems we spent those years feeding rats as much as people " + str(total_ratsDestroyed)
                   + " bushels in total.")
         elif total_ratsDestroyed > 3000:
-            print("Granted should call you the king of rats with how much they ate" + str(total_ratsDestroyed) +
+            print("Granted should call you the king of rats with how much they ate " + str(total_ratsDestroyed) +
                   " bushels in total.\n" + "I mean really sire I told you your decree banning cats was bad.")
 
         if land < 1000:
