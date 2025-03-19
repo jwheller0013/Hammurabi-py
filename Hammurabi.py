@@ -127,7 +127,7 @@ class Hammurabi:
                     #covers rats
 
                 if i == 10:
-                    Hammurabi.end_results(total_starved, land, total_ratsDestroyed, plague_counter)
+                    Hammurabi.end_results(total_starved, land, total_ratsDestroyed, plague_counter, people)
                     return
 
 
@@ -136,7 +136,7 @@ class Hammurabi:
     # other methods go here
 
     def start_game(x):
-        z =input("Are you ready to see if you can live up to being the great\n" + "Hammurabi?\n")
+        z =input("Are you ready to see if you can live up to being the great\n" + "Hammurabi? (Yes or No)\n")
         if z == "No":
             print("So be it.")
             x = False
@@ -254,13 +254,15 @@ class Hammurabi:
         harvest = int(planted_acres) * int(bushelsPerAcre)
         return harvest
 
-    def end_results(total_starved, land, total_ratsDestroyed, plague_counter):
+    def end_results(total_starved, land, total_ratsDestroyed, plague_counter, people):
         print("O great Hammurabi you have made it to the end of your ten year rule.")
 
         if total_starved == 0:
             print("You are quite a humanitarian somehow no one starved under your rule.")
+        elif 0 < total_starved < 50:
+            print("The people are content with how fed they are only " + str(total_starved) + " starved to death.")
         elif total_starved <= 50:
-            print("Of your subjects only " + str(total_starved) + " starved to death.")
+            print("Pretty cutthroat on rations over the years as " + str(total_starved) + " starved to death.")
         elif total_starved > 50:
             print("Surprised you made it out alive considering " + str(total_starved) + " starved to death.")
 
@@ -286,6 +288,12 @@ class Hammurabi:
         elif total_ratsDestroyed > 3000:
             print("Granted should call you the king of rats with how much they ate " + str(total_ratsDestroyed) +
                   " bushels in total.\n" + "I mean really sire I told you your decree banning cats was bad.")
+
+        if people > 100:
+            print("Guess you did something right as our population grew by " + str(int(people) -100) +".")
+        elif people < 100:
+            print("Between all that happened we are lucky to have a kingdom\n" +
+                  " as our population shrunk by " + str(int(people) -100) +".")
 
         if land < 1000:
             print("During your rule we lost land though, roughly " + str(1000-int(land)) + " acres.\n" +
