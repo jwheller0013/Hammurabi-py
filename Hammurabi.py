@@ -148,7 +148,7 @@ class Hammurabi:
         return x
 
 
-    def intro():
+    def intro(self):
         print ("Congratulations, you are the newest ruler of ancient Sumer, elected for a ten year term of " +
                "office. Your \nduties are to dispense food, direct farming, and buy and sell land as " +
                "needed to support your people.\n" + "Watch out for rat infestiations and the plague! " +
@@ -246,7 +246,7 @@ class Hammurabi:
             starved = 0
         return starved
 
-    def bushels_per_acre ():
+    def bushels_per_acre (self):
         luck = randrange(1, 7)
         return luck
 
@@ -259,7 +259,7 @@ class Hammurabi:
 
         if total_starved == 0:
             print("You are quite a humanitarian somehow no one starved under your rule.")
-        elif 0 < total_starved < 50:
+        elif total_starved < 50 and total_starved > 0:
             print("The people are content with how fed they are only " + str(total_starved) + " starved to death.")
         elif total_starved <= 50:
             print("Pretty cutthroat on rations over the years as " + str(total_starved) + " starved to death.")
